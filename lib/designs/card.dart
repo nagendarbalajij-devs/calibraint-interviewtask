@@ -1,0 +1,175 @@
+import 'package:flutter/material.dart';
+import 'package:interviewtask/designs/buttons.dart';
+import 'package:interviewtask/designs/colours.dart';
+import 'package:interviewtask/designs/texts.dart';
+import 'package:interviewtask/models/episode.dart';
+import 'package:interviewtask/models/show.dart';
+import 'package:interviewtask/utils/sizes.dart';
+
+class Cards {
+  static Widget showCard(context, Show show, var showDetail) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: Sizes.ofHeight(1)),
+      padding: EdgeInsets.all(Sizes.ofHeight(1)),
+      decoration: BoxDecoration(
+        color: Colours.primary,
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            height: Sizes.ofHeight(12),
+            width: Sizes.ofHeight(9),
+            child: show.image != ""
+                ? Image(
+                    image: NetworkImage(show.image),
+                  )
+                : Icon(Icons.error),
+          ),
+          Container(
+            margin: EdgeInsets.only(left: Sizes.ofWidth(2)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: Sizes.ofWidth(60),
+                  child: Text(
+                    "${show.name}",
+                    style: Texts.white(),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                Material(
+                  color: Colours.primary,
+                  child: InkWell(
+                    onTap: () {
+                      showSummaryDialog(context, show.summary);
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(top: Sizes.ofHeight(1)),
+                      width: Sizes.ofWidth(60),
+                      child: Text(
+                        "${show.summary}",
+                        style: Texts.greySubText(),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                    margin: EdgeInsets.only(top: Sizes.ofHeight(1)),
+                    child: Buttons.button("Show Episodes", () {
+                      showDetail(show);
+                    })),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  static Widget noDataCard() {
+    return Container(
+        margin: EdgeInsets.symmetric(vertical: Sizes.ofHeight(1)),
+        padding: EdgeInsets.all(Sizes.ofHeight(1)),
+        decoration: BoxDecoration(
+          color: Colours.primary,
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: Center(
+          child: Text(
+            "No data available",
+            style: Texts.whiteSubText(),
+          ),
+        ));
+  }
+
+  static Widget episodeCard(Episode episode) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: Sizes.ofHeight(1)),
+      padding: EdgeInsets.all(Sizes.ofHeight(1)),
+      decoration: BoxDecoration(
+        color: Colours.primary,
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            height: Sizes.ofHeight(9),
+            width: Sizes.ofHeight(12),
+            child: episode.image != ""
+                ? Image(
+                    image: NetworkImage(episode.image),
+                  )
+                : Icon(Icons.error),
+          ),
+          Container(
+            margin: EdgeInsets.only(left: Sizes.ofWidth(2)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: Sizes.ofWidth(56),
+                  child: Text(
+                    "${episode.name}",
+                    style: Texts.white(),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: Sizes.ofHeight(1)),
+                  width: Sizes.ofWidth(56),
+                  child: Text(
+                    "${episode.runtime} M",
+                    style: Texts.whiteSubText(),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                  ),
+                ),
+                Container(
+                  width: Sizes.ofWidth(56),
+                  child: Text(
+                    "${episode.airdate}",
+                    style: Texts.greySubText(),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  static showSummaryDialog(context, String summary) {
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        elevation: 20,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+        child: SingleChildScrollView(
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(4),
+              color: Colours.accent,
+            ),
+            padding: EdgeInsets.symmetric(vertical: Sizes.ofHeight(2), horizontal: Sizes.ofWidth(2)),
+            child: Text(
+              summary,
+              style: Texts.whiteSubText(),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
