@@ -171,7 +171,6 @@ class _ShowDetailState extends State<ShowDetail> with TickerProviderStateMixin {
 
     //Mapping all seasons to dropdown button to enable dropdown.
     seasons.forEach((element) {
-      log("message");
       context.read<Season>().addSeason(DropdownMenuItem(
             value: element,
             child: Text(

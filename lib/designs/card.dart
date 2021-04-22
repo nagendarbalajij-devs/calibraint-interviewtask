@@ -28,11 +28,13 @@ class Cards {
               height: Sizes.ofHeight(12),
               width: Sizes.ofHeight(9),
               child: show.image != ""
-                  ? Image(
-                      image: NetworkImage(show.image),
-                      loadingBuilder: (context, child, loadingProgress) {
-                        return loadingProgress == null ? child : Progress.progressIndicator();
-                      },
+                  ? Stack(
+                      children: [
+                        Center(
+                          child: Progress.progressIndicator(),
+                        ),
+                        Image.network(show.image)
+                      ],
                     )
                   : Icon(Icons.error)),
 
@@ -122,8 +124,13 @@ class Cards {
             height: Sizes.ofHeight(9),
             width: Sizes.ofHeight(12),
             child: episode.image != ""
-                ? Image(
-                    image: NetworkImage(episode.image),
+                ? Stack(
+                    children: [
+                      Center(
+                        child: Progress.progressIndicator(),
+                      ),
+                      Image.network(episode.image)
+                    ],
                   )
                 : Icon(Icons.error),
           ),
