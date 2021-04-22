@@ -1,16 +1,22 @@
-# interviewtask
+# Interview App
+An app to view all TV Series, view their details and episodes available on NetFlix through TVMaze API. 
 
-A new Flutter project.
+## Features
+- Dashboard will display all TV Shows available
+ - Search can be used to filter results.
+ - Click "Show Episodes" to get all available episodes in a TV Show based on seasons. 
+ - View episode name, thumbnail image, runtime and initial release date.
 
-## Getting Started
+## Usage
+### Search
+- Click the search icon from the dashboard. 
+- Type the query in the text field and hit enter.
+- Use clear button to clear any pervious search results.
 
-This project is a starting point for a Flutter application.
+### Episodes
+- Click "Show Episodes" button from the desired TV Series to open TV Series Details page.
+- Select the desired season from the drop down button on the right side. 
+- View the episodes from the list below.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### TV Series Description
+Only a few lines of TV Series description can fit in the list view. Thus click on the description to open a new dialog to show complete description. 
