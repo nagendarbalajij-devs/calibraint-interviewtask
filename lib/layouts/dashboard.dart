@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:interviewtask/api/api.dart';
@@ -8,6 +8,8 @@ import 'package:interviewtask/designs/card.dart';
 import 'package:interviewtask/designs/colours.dart';
 import 'package:interviewtask/designs/progress.dart';
 import 'package:interviewtask/layouts/series_detail.dart';
+import 'package:interviewtask/models/episode.dart';
+import 'package:interviewtask/models/season.dart';
 import 'package:interviewtask/models/show.dart';
 import 'package:interviewtask/utils/sizes.dart';
 import 'package:http/http.dart' as http;
@@ -45,7 +47,6 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                 switch (snapshot.connectionState) {
                   case ConnectionState.done:
                     List results = jsonDecode(snapshot.data.body);
-                    print(results[0]);
                     shows = results.map((e) => Show.fromGetAllJson(e)).toList();
                     return Container(
                         child: ListView.builder(
@@ -71,6 +72,8 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
   }
 
   showDetail(show) {
+    context.read<Episode>().clearEpisodes();
+    context.read<Season>().clearSeasons();
     Navigator.push(
         context,
         MaterialPageRoute(

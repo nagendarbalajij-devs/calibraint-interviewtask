@@ -28,7 +28,6 @@ class Api {
   static Future<List<Season>> getSeasons(String id) async {
     http.Response response = await http.get(Uri.parse("${seasons}${id}/seasons"));
     List results = json.decode(response.body);
-    print(results.length);
     return results.map((e) => Season.fromJson(e)).toList();
   }
 

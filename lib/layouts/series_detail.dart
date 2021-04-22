@@ -11,6 +11,7 @@ import 'package:interviewtask/models/episode.dart';
 import 'package:interviewtask/models/loading.dart';
 import 'package:interviewtask/models/season.dart';
 import 'package:interviewtask/models/show.dart';
+import 'package:interviewtask/utils/dialogs.dart';
 import 'package:interviewtask/utils/sizes.dart';
 import 'package:provider/provider.dart';
 
@@ -99,7 +100,7 @@ class _ShowDetailState extends State<ShowDetail> with TickerProviderStateMixin {
                 color: Colours.background,
                 child: InkWell(
                     onTap: () {
-                      Cards.showSummaryDialog(context, show.summary);
+                      Dialogs.showSummaryDialog(context, show.summary);
                     },
                     child: Container(
                       margin: EdgeInsets.only(bottom: Sizes.ofHeight(1)),
@@ -141,9 +142,8 @@ class _ShowDetailState extends State<ShowDetail> with TickerProviderStateMixin {
   }
 
   getSeasons() async {
-    context.read<Loading>().load();
-    context.read<Episode>().clearEpisodes();
-    context.read<Season>().clearSeasons();
+    //context.read<Loading>().load();
+
     List<Season> seasons = await Api.getSeasons(show.id);
     seasons.forEach((element) {
       log("message");

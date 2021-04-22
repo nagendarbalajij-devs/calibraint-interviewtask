@@ -38,7 +38,14 @@ class Texts {
   }
 
   static whiteSubText() {
-    return TextStyle(color: Colors.white, fontSize: Sizes.fontSize * 0.7);
+    return TextStyle(
+      color: Colors.white,
+      fontSize: Sizes.fontSize * 0.7,
+    );
+  }
+
+  static whiteDialogSubText() {
+    return TextStyle(color: Colors.white, fontSize: Sizes.fontSize * 0.7, height: Sizes.ofHeight(0.15));
   }
 
   static greySubText() {

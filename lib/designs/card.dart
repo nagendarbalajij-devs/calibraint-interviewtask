@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:interviewtask/designs/buttons.dart';
 import 'package:interviewtask/designs/colours.dart';
+import 'package:interviewtask/designs/progress.dart';
 import 'package:interviewtask/designs/texts.dart';
 import 'package:interviewtask/models/episode.dart';
 import 'package:interviewtask/models/show.dart';
+import 'package:interviewtask/utils/dialogs.dart';
 import 'package:interviewtask/utils/sizes.dart';
 
 class Cards {
@@ -20,14 +22,16 @@ class Cards {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            height: Sizes.ofHeight(12),
-            width: Sizes.ofHeight(9),
-            child: show.image != ""
-                ? Image(
-                    image: NetworkImage(show.image),
-                  )
-                : Icon(Icons.error),
-          ),
+              height: Sizes.ofHeight(12),
+              width: Sizes.ofHeight(9),
+              child: show.image != ""
+                  ? Image(
+                      image: NetworkImage(show.image),
+                      loadingBuilder: (context, child, loadingProgress) {
+                        return loadingProgress == null ? child : Progress.progressIndicator();
+                      },
+                    )
+                  : Icon(Icons.error)),
           Container(
             margin: EdgeInsets.only(left: Sizes.ofWidth(2)),
             child: Column(
@@ -46,7 +50,7 @@ class Cards {
                   color: Colours.primary,
                   child: InkWell(
                     onTap: () {
-                      showSummaryDialog(context, show.summary);
+                      Dialogs.showSummaryDialog(context, show.summary);
                     },
                     child: Container(
                       margin: EdgeInsets.only(top: Sizes.ofHeight(1)),
@@ -146,29 +150,6 @@ class Cards {
             ),
           )
         ],
-      ),
-    );
-  }
-
-  static showSummaryDialog(context, String summary) {
-    showDialog(
-      context: context,
-      builder: (context) => Dialog(
-        elevation: 20,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-        child: SingleChildScrollView(
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4),
-              color: Colours.accent,
-            ),
-            padding: EdgeInsets.symmetric(vertical: Sizes.ofHeight(2), horizontal: Sizes.ofWidth(2)),
-            child: Text(
-              summary,
-              style: Texts.whiteSubText(),
-            ),
-          ),
-        ),
       ),
     );
   }

@@ -6,7 +6,9 @@ import 'package:interviewtask/designs/colours.dart';
 import 'package:interviewtask/designs/progress.dart';
 import 'package:interviewtask/designs/texts.dart';
 import 'package:interviewtask/layouts/series_detail.dart';
+import 'package:interviewtask/models/episode.dart';
 import 'package:interviewtask/models/loading.dart';
+import 'package:interviewtask/models/season.dart';
 import 'package:interviewtask/models/show.dart';
 import 'package:interviewtask/models/strings.dart';
 import 'package:interviewtask/utils/sizes.dart';
@@ -108,6 +110,8 @@ class _SearchState extends State<Search> with TickerProviderStateMixin {
   }
 
   showDetail(show) {
+    context.read<Episode>().clearEpisodes();
+    context.read<Season>().clearSeasons();
     Navigator.push(
         context,
         MaterialPageRoute(

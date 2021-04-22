@@ -71,4 +71,28 @@ class Dialogs {
       },
     );
   }
+
+  static showSummaryDialog(context, String summary) {
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        elevation: 100,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+        child: SingleChildScrollView(
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(4),
+              color: Colours.primary,
+            ),
+            padding: EdgeInsets.symmetric(vertical: Sizes.ofHeight(2), horizontal: Sizes.ofWidth(2)),
+            child: Text(
+              summary,
+              style: Texts.whiteDialogSubText(),
+              textAlign: TextAlign.justify,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }

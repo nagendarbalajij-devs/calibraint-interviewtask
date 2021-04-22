@@ -8,7 +8,6 @@ class Episode extends ChangeNotifier {
   Episode({this.name, this.airdate, this.number, this.season, this.image, this.runtime});
 
   Episode.fromJson(json) {
-    print("${json['runtime']}");
     this.name = json['name'];
     this.airdate = json['airdate'];
     this.number = json['number'];
