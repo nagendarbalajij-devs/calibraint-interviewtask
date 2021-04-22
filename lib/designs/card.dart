@@ -33,7 +33,9 @@ class Cards {
                         Center(
                           child: Progress.progressIndicator(),
                         ),
-                        Image.network(show.image)
+                        Center(
+                          child: Image.network(show.image),
+                        )
                       ],
                     )
                   : Icon(Icons.error)),
@@ -129,7 +131,9 @@ class Cards {
                       Center(
                         child: Progress.progressIndicator(),
                       ),
-                      Image.network(episode.image)
+                      Center(
+                        child: Image.network(episode.image),
+                      )
                     ],
                   )
                 : Icon(Icons.error),
