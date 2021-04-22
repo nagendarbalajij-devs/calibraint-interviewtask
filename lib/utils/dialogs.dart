@@ -5,6 +5,8 @@ import 'package:interviewtask/utils/sizes.dart';
 
 class Dialogs {
   static Widget AlertDialog(context, String title, String message, var icon) {
+    //Returns a dialog to show an alert with passed title, message and icon
+    //barrierDismissible will be set to false to avoid accidental dismissal
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -73,6 +75,7 @@ class Dialogs {
   }
 
   static showSummaryDialog(context, String summary) {
+    //Summary text are displayed in a dialog to show clipped text.
     showDialog(
       context: context,
       builder: (context) => Dialog(

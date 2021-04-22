@@ -23,12 +23,17 @@ class ShowDetail extends StatefulWidget {
 }
 
 class _ShowDetailState extends State<ShowDetail> with TickerProviderStateMixin {
+  //TV Series detail view.
+  //Default constructor will get the selected TV Series while pushing.
+
   Show show;
   _ShowDetailState({this.show});
 
   @override
   void initState() {
     super.initState();
+
+    //Called to fetch all seasons in selected TV Series
     getSeasons();
   }
 
@@ -42,8 +47,11 @@ class _ShowDetailState extends State<ShowDetail> with TickerProviderStateMixin {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            //First Column will have a row
+            //The row contains thumbnails and season select dropdown.
             Row(
               children: [
+                //TV Series thumbnail image
                 Container(
                   height: Sizes.ofHeight(20),
                   width: Sizes.ofHeight(17),
@@ -53,6 +61,8 @@ class _ShowDetailState extends State<ShowDetail> with TickerProviderStateMixin {
                         )
                       : Icon(Icons.error),
                 ),
+
+                //TV Series seasons select dropdown.
                 Expanded(
                   child: Center(
                     child: Container(
@@ -65,10 +75,14 @@ class _ShowDetailState extends State<ShowDetail> with TickerProviderStateMixin {
                                   items: value.seasonsList,
                                   value: value.selectedSeason,
                                   onChanged: (val) {
+                                    //onChanged called to pass the selected season
                                     value.selectSeason(val);
+
+                                    //get all the episodes in the series
                                     getEpisodes(val);
                                   },
                                 )
+                              //Circular progress indicator is shown when dropdown seasons are still loading.
                               : Container(
                                   decoration: BoxDecoration(color: Colours.accent, borderRadius: BorderRadius.circular(4)),
                                   padding: EdgeInsets.all(Sizes.ofWidth(2)),
@@ -85,6 +99,8 @@ class _ShowDetailState extends State<ShowDetail> with TickerProviderStateMixin {
                 )
               ],
             ),
+
+            //TV Series name.
             Container(
               margin: EdgeInsets.only(top: Sizes.ofHeight(2), bottom: Sizes.ofHeight(1)),
               padding: EdgeInsets.symmetric(horizontal: Sizes.ofWidth(2)),
@@ -95,6 +111,8 @@ class _ShowDetailState extends State<ShowDetail> with TickerProviderStateMixin {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
+
+            //TV Series summary.
             Container(
               child: Material(
                 color: Colours.background,
@@ -114,11 +132,16 @@ class _ShowDetailState extends State<ShowDetail> with TickerProviderStateMixin {
                     )),
               ),
             ),
+
+            //Progress indicator controlled by provider.
+            //Progress is displayed when loading episodes for the selected season.
             Center(
                 child: Container(
               margin: EdgeInsets.only(top: Sizes.ofHeight(1)),
               child: Progress.progressLoader(),
             )),
+
+            //Episodes list for the selected seasons.
             Expanded(
                 child: AnimatedSize(
               vsync: this,
@@ -142,9 +165,11 @@ class _ShowDetailState extends State<ShowDetail> with TickerProviderStateMixin {
   }
 
   getSeasons() async {
-    //context.read<Loading>().load();
-
+    //Called at init
+    //Getting all seasons from API.
     List<Season> seasons = await Api.getSeasons(show.id);
+
+    //Mapping all seasons to dropdown button to enable dropdown.
     seasons.forEach((element) {
       log("message");
       context.read<Season>().addSeason(DropdownMenuItem(
@@ -155,14 +180,26 @@ class _ShowDetailState extends State<ShowDetail> with TickerProviderStateMixin {
             ),
           ));
     });
+
+    //The first available season will be selected by default for the first time.
     context.read<Season>().selectFirstSeason();
+
+    //Episodes will be fetched for the defualt season, which will the first available season.
     getEpisodes(context.read<Season>().selectedSeason);
   }
 
   getEpisodes(Season selectedSeason) async {
+    //Progress indicator is loaded when episodes are getting loaded.
     context.read<Loading>().load();
+
+    //All episodes from the selected season will be cleared.
     context.read<Episode>().clearEpisodes();
+
+    //The new list of episodes from API will be passed to the episodes list.
+    //The new list will displayed.
     context.read<Episode>().addEpisodes(await Api.getEpisodes(selectedSeason.id.toString()));
+
+    //The progress indicator will be stopped.
     context.read<Loading>().stop();
   }
 }

@@ -4,6 +4,7 @@ import 'package:interviewtask/models/loading.dart';
 import 'package:provider/provider.dart';
 
 class Progress {
+  //Progress loader with providers enabled
   static Widget progressLoader() {
     return Container(
       child: Consumer<Loading>(
@@ -18,6 +19,7 @@ class Progress {
     );
   }
 
+  //Widget for progress indicator.
   static Widget progressIndicator() {
     return CircularProgressIndicator(
       valueColor: AlwaysStoppedAnimation(Colours.accent),

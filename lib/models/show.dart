@@ -9,6 +9,9 @@ class Show extends ChangeNotifier {
   Show({this.name, this.image, this.summary, this.id});
   List<Show> shows = [];
 
+  //Two constructors are used for getting model from JSON
+  //First for search
+  //Second for all shows.
   Show.fromJson(json) {
     id = json['show']['id'].toString();
     name = json['show']['name'];
@@ -31,11 +34,14 @@ class Show extends ChangeNotifier {
     }
   }
 
+  //List of all TV Series.
+  //This will be used to display the cards list.
   setShows(List<Show> shows) {
     this.shows = shows;
     notifyListeners();
   }
 
+  //Clear all the shows
   clearShows() {
     this.shows = [];
     notifyListeners();

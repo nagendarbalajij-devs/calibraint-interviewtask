@@ -68,6 +68,7 @@ class Landing extends StatelessWidget {
     //Futurther called to render adaptive widgets
     Sizes(context: context).initSize();
 
+    //Dashboard screen
     return Dashboard();
   }
 }

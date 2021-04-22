@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:interviewtask/designs/colours.dart';
 
 class Appbars {
+  //Primary app bar for dashboard with search button
   static mainAppBar(String title, searchCallback) {
     return AppBar(
       brightness: Brightness.dark,
@@ -26,6 +27,7 @@ class Appbars {
     );
   }
 
+  //Appbar with back button
   static appbarWithBackNav(String title) {
     return AppBar(
       brightness: Brightness.dark,

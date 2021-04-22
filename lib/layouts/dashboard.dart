@@ -20,12 +20,8 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
+  //shows contains all Series from the API
   List<Show> shows = [];
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,10 +38,12 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
             duration: Duration(milliseconds: 500),
             curve: Curves.fastOutSlowIn,
             child: FutureBuilder(
+              //Getting all TV Series futures from API
               future: Api.getAllShows(),
               builder: (context, AsyncSnapshot<http.Response> snapshot) {
                 switch (snapshot.connectionState) {
                   case ConnectionState.done:
+                    //Changing JSON response to List<Show> data models.
                     List results = jsonDecode(snapshot.data.body);
                     shows = results.map((e) => Show.fromGetAllJson(e)).toList();
                     return Container(
@@ -53,6 +51,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                       physics: BouncingScrollPhysics(),
                       padding: EdgeInsets.symmetric(horizontal: Sizes.ofWidth(4)),
                       itemCount: shows.length,
+                      //displaying with custom list view
                       itemBuilder: (context, index) => Cards.showCard(context, shows[index], showDetail),
                     ));
 
@@ -68,12 +67,17 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
   }
 
   searchCallback() {
+    //Route to show search
     Navigator.pushNamed(context, '/search');
   }
 
   showDetail(show) {
+    //Clearing seasons and episodes before loading the newly selected series.
     context.read<Episode>().clearEpisodes();
     context.read<Season>().clearSeasons();
+
+    //Passing the show to ShowDetail to view series details.
+    //Routing to the page
     Navigator.push(
         context,
         MaterialPageRoute(

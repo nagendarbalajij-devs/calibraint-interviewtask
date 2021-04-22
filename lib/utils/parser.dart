@@ -1,8 +1,10 @@
 import 'package:html/parser.dart';
 
 class SummaryParser {
+  //The summary from API contains HTML tags.
+  //This will be used to remove the html tags and return the String.
   static String parseSummary(String summary) {
-    var doc = parse(summary);
-    return parse(doc.body.text).documentElement.text;
+    var res = parse(summary);
+    return parse(res.body.text).documentElement.text;
   }
 }

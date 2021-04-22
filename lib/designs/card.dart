@@ -9,6 +9,8 @@ import 'package:interviewtask/utils/dialogs.dart';
 import 'package:interviewtask/utils/sizes.dart';
 
 class Cards {
+  //Card to display TV Series
+  //Contains thumbnail images, title, summary
   static Widget showCard(context, Show show, var showDetail) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: Sizes.ofHeight(1)),
@@ -21,6 +23,7 @@ class Cards {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          //Thumbnail image
           Container(
               height: Sizes.ofHeight(12),
               width: Sizes.ofHeight(9),
@@ -32,12 +35,14 @@ class Cards {
                       },
                     )
                   : Icon(Icons.error)),
+
           Container(
             margin: EdgeInsets.only(left: Sizes.ofWidth(2)),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                //TV Series name
                 Container(
                   width: Sizes.ofWidth(60),
                   child: Text(
@@ -46,6 +51,9 @@ class Cards {
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
+
+                //TV Series summary.
+                //Will open a dialog for detailed summary when clicked on.
                 Material(
                   color: Colours.primary,
                   child: InkWell(
@@ -64,6 +72,8 @@ class Cards {
                     ),
                   ),
                 ),
+
+                //Show episodes button
                 Container(
                     margin: EdgeInsets.only(top: Sizes.ofHeight(1)),
                     child: Buttons.button("Show Episodes", () {
@@ -77,6 +87,7 @@ class Cards {
     );
   }
 
+  //No data available card when no results are found for search
   static Widget noDataCard() {
     return Container(
         margin: EdgeInsets.symmetric(vertical: Sizes.ofHeight(1)),
@@ -93,6 +104,8 @@ class Cards {
         ));
   }
 
+  //Episode display in card view.
+  //Contains thumbnail image, release date and runtime.
   static Widget episodeCard(Episode episode) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: Sizes.ofHeight(1)),

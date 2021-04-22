@@ -20,11 +20,15 @@ class Episode extends ChangeNotifier {
     }
   }
 
+  //List of episodes from JSON are added to episodes list
+  //This is used to display episodes in a season
   addEpisodes(List<Episode> _episodes) {
     this.episodes = _episodes;
     notifyListeners();
   }
 
+  //All entries in list of episodes will be cleared.
+  //notifyListneres may not be needed. Added to avoid runtime errors & keep the code lite.
   clearEpisodes() {
     episodes.clear();
     notifyListeners();
