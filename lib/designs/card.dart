@@ -146,11 +146,19 @@ class Cards {
               children: [
                 Container(
                   width: Sizes.ofWidth(56),
-                  child: Text(
-                    "${episode.name}",
-                    style: Texts.white(),
-                    overflow: TextOverflow.ellipsis,
-                  ),
+                  child: Row(textBaseline: TextBaseline.ideographic, mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.baseline, children: [
+                    Text(
+                      "${episode.number}.  ",
+                      style: Texts.greySubText(),
+                    ),
+                    Expanded(
+                      child: Text(
+                        "${episode.name}",
+                        style: Texts.white(),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    )
+                  ]),
                 ),
                 Container(
                   margin: EdgeInsets.only(top: Sizes.ofHeight(1)),
